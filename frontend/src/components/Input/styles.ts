@@ -22,6 +22,7 @@ export const Container = styled.div<IContainerProps>`
         background: transparent;
         border: 0;
         padding: 1.8rem 2.4rem;
+        font-family: inherit;
 
         &::placeholder {
             color: #777;
