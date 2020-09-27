@@ -12,6 +12,8 @@ export const Container = styled.div`
 
         img {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
             pointer-events: none;
             user-select: none;
         }
@@ -24,9 +26,25 @@ export const Container = styled.div`
             color: #3d3d4d;
         }
 
+        button {
+            padding: 1rem 2rem;
+            border: 0;
+            border-radius: 0.8rem;
+            color: #fff;
+            background: #CE263F;
+            margin-top: 2rem;
+            font-family: inherit;
+            font-size: 1.3rem;
+        }
+
         p {
             color: #3d3d4d;
+            font-size: 1.5rem;
             margin-top: 1.6rem;
+        }        
+
+        p:last-child {
+            font-size: 1.2rem;
         }
     }
 
