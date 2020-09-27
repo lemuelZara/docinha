@@ -6,9 +6,10 @@ import Header from '../../components/Header';
 import Recipe from '../../components/Recipe';
 import ModalAddRecipe from '../../components/ModalAddRecipe';
 
-import { FoodsContainer } from './styles';
+import { RecipesContainer } from './styles';
+import ModalEditRecipe from '../../components/ModalEditRecipe';
 
-interface IRecipesPlate {
+interface IRecipePlate {
     id: number;
     title: string;
     author: string;
@@ -17,24 +18,28 @@ interface IRecipesPlate {
 }
 
 const RecipesList = () => {
-    const [recipes, setRecipes] = useState<IRecipesPlate[]>([]);
+    const [recipes, setRecipes] = useState<IRecipePlate[]>([]);
+    const [editingRecipe, setEditingRecipe] = useState<IRecipePlate>({} as IRecipePlate);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
         async function loadRecipes(): Promise<void> {
-            await api.get('/recipes').then(response => setRecipes(response.data));
+            const { data } = await api.get('/recipes');
+
+            setRecipes(data);
         }
 
         loadRecipes();
-    })
+    }, [])
 
     async function handleAddRecipe(
-        recipe: Omit<IRecipesPlate, 'id'>
+        recipe: Omit<IRecipePlate, 'id'>
     ): Promise<void> {
         try {
-            const response = await api.post('/recipes', recipe);
+            const { data } = await api.post('/recipes', recipe);
 
-            setRecipes([...recipes, response.data]);
+            setRecipes([...recipes, data]);
         } catch (err) {
             console.error(err)
         }
@@ -43,15 +48,45 @@ const RecipesList = () => {
     async function handleDeleteRecipe(
         id: number
     ): Promise<void> {
-        await api.delete(`/recipes/${id}`);
+        try {
+            await api.delete(`/recipes/${id}`)
 
-        const updatedRecipesState = recipes.filter(recipe => recipe.id !== id);
+            setRecipes(recipes.filter(recipe => recipe.id !== id))
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
-        setRecipes(updatedRecipesState);
+    async function handleUpdateRecipe(
+        recipe: Omit<IRecipePlate, 'id'>
+    ): Promise<void> {
+        console.log(editingRecipe.id)
+        try {
+            const response = await api.put(`/recipes/${editingRecipe.id}`, {
+                ...editingRecipe,
+                ...recipe
+            })
+
+            setRecipes(recipes.map(mappedRecipe => {
+                return mappedRecipe.id === editingRecipe.id ? { ...response.data } : mappedRecipe
+            }))
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     function toggleModal(): void {
+        console.log('toggleModal')
         setModalOpen(!modalOpen);
+    }
+
+    function toggleEditModal(): void {
+        setEditModalOpen(!editModalOpen);
+    }
+
+    function handleEditRecipe(recipe: IRecipePlate): void {
+        setEditingRecipe(recipe);
+        toggleEditModal();
     }
 
     return (
@@ -62,16 +97,22 @@ const RecipesList = () => {
                 setIsOpen={toggleModal}
                 handleAddRecipe={handleAddRecipe}
             />
-            <FoodsContainer>
+            <ModalEditRecipe
+                isOpen={editModalOpen}
+                setIsOpen={toggleEditModal}
+                editingRecipe={editingRecipe}
+                handleUpdateRecipe={handleUpdateRecipe}
+            />
+            <RecipesContainer>
                 {recipes && recipes.map(recipe => (
                     <Recipe
                         key={recipe.id}
                         recipe={recipe}
-                        handleDelete={() => handleDeleteRecipe(recipe.id)}
-                        handleEditRecipe={() => { }}
+                        handleDelete={handleDeleteRecipe}
+                        handleEditRecipe={handleEditRecipe}
                     />
                 ))}
-            </FoodsContainer>
+            </RecipesContainer>
         </>
     )
 };
