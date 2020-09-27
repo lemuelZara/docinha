@@ -4,7 +4,8 @@ import { FiCheckSquare } from 'react-icons/fi';
 
 import { Form } from './styles';
 import Modal from '../Modal';
-import Input from '../../components/Input';
+import Input from '../Input';
+import TextArea from '../TextArea';
 
 interface IRecipePlate {
     id: number;
@@ -49,7 +50,7 @@ const ModalAddRecipe: React.FC<IModalProps> = ({
                 <Input name="title" placeholder="Tìtulo para a receita" />
                 <Input name="author" placeholder="Nome do autor da receita" />
                 <Input name="urlImage" placeholder="Informe a URL da imagem" />
-                <Input name="description" placeholder="Uma breve descrição" />
+                <TextArea name="description" placeholder="Escreva aqui uma descrição de como fazer essa receita" />
 
                 <button type="submit">
                     <p className="text">Adicionar Receita</p>
