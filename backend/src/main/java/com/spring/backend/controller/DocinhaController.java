@@ -70,21 +70,4 @@ public class DocinhaController {
                 .status(200)
                 .body(docinhaService.findAll());
     }
-
-    @GetMapping(path = "/recipes/{id}")
-    public ResponseEntity<Recipes> index(
-            @PathVariable(required = true, name = "id") Long id
-    ) {
-        Optional<Recipes> findRecipeById = docinhaService.findById(id);
-
-        if (!findRecipeById.isPresent()) {
-            return ResponseEntity
-                    .status(404)
-                    .build();
-        }
-
-        return ResponseEntity
-                .status(200)
-                .body(findRecipeById.get());
-    }
 }
