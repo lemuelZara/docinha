@@ -15,6 +15,15 @@ Docinha é um projeto utilizando a linguagem Java com o framework Spring e a bib
 
 ## Backend
 
+Antes de tudo, foi utilizado o Docker para servir o banco de dados PostgreSQL, para rodar um container com o PostgreSQL configurado para o projeto, rode os seguintes comandos:
+
+```powershell
+# Criando um container
+
+docker run -d --name docinha -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=docinha -p 5432:5432 docinha
+```
+<br>
+
 Para rodar o backend da aplicação, utilize sua IDE favorita (NetBeans, Eclipse, etc) ou outro ambiente que preferir. Entre na pasta `backend` e rode o projeto.
 
 <br>
