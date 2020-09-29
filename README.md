@@ -1,3 +1,8 @@
-# Docinha
+<h1 align="center">🧁 Docinha</h1>
 
-Projeto feito para a disciplina de Desenvolvimento Web II, do curso de Análise e Desenvolvimento de Sistemas.
+<h1 align="center">  
+  <img src="https://img.shields.io/badge/React-gray?logo=react&style=plastic" />
+  <img src="https://img.shields.io/badge/Java%20Spring-gray?logo=spring&style=plastic" />
+</h1>
+
+Docinha é um projeto utilizando a linguagem Java com o framework Spring e a biblioteca React.js para a o desenvolvimento de um sistema para a criação de receitas.
