@@ -9,6 +9,9 @@
 
 Docinha é um projeto utilizando a linguagem Java com o framework Spring e a biblioteca React.js para a o desenvolvimento de um sistema para a criação de receitas.
 
+<p align="center">
+  <img src="./github/web.png" />
+</p>
 <br>
 
 # Como executar o projeto?
