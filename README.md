@@ -23,7 +23,7 @@ Antes de tudo, foi utilizado o Docker para servir o banco de dados PostgreSQL, p
 ```powershell
 # Criando um container
 
-docker run -d --name docinha -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=docinha -p 5432:5432 docinha
+docker run -d --name docinha -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=docinha -p 5432:5432 postgres
 ```
 <br>
 
